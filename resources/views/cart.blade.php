@@ -39,16 +39,22 @@
                                         class="img-fluid rounded" style="width: 80px;"></th>
                                 <td>{{ $item->food_name }}</td>
                                 <td>${{ $item->food_price }}</td>
-                                <td><a href="/cart/{{ $item->id }}" class="btn btn-danger text-white">delete</td>
+                                <td><a href="/cart/delete/{{ $item->id }}" class="btn btn-danger text-white">delete</td>
                             </tr>
                         @endforeach
 
                     </tbody>
                 </table>
-                <div class="position-relative mx-auto" style="max-width: 400px; padding-left: 679px;">
-                    <p style="margin-left: -7px;" class="w-19 py-3 ps-4 pe-5" type="text"> Total: ${{ $price }}
+                <div class="position-relative mx-auto fw-medium" style="max-width: 400px; padding-left: 679px;">
+                    <p style="margin-left: -7px;" class="w-19 py-3 ps-4 pe-5 fw-medium" type="text"> Total:
+                        ${{ $price }}
                     </p>
-                    <button type="button" class="btn btn-primary py-2 top-0 end-0 mt-2 me-2">Checkout</button>
+                    <form method="POST" action="{{ route('prepare-checkout') }}">
+                        @csrf
+                        <input type="text" name="price" value="{{ $price }}" hidden>
+                        <button type="submit" name="submit"
+                            class="btn btn-primary py-2 top-0 end-0 mt-2 me-2">Checkout</button>
+                    </form>
                 </div>
             </div>
         @else

@@ -23,8 +23,12 @@ Route::get('/about', [App\Http\Controllers\HomeController::class, 'about'])->nam
 Route::get('/foods/{food:slug}', [FoodController::class, 'foodDetail'])->name('food-detail');
 // Route::get('/foods/{food:slug}', [FoodController::class, 'cartDetail'])->name('cart-detail');
 
-// Adding food to the cart
+// cart
 Route::post('/foods/{food:slug}', [FoodController::class, 'addToCart'])->name('food-cart-add');
-
 Route::get('/cart', [FoodController::class, 'displayCart'])->name('display-cart');
-Route::get('/cart/{id}', [FoodController::class, 'deleteCartItem'])->name('delete-cart-item');
+Route::get('/cart/delete/{id}', [FoodController::class, 'deleteCartItem'])->name('delete-cart-item');
+
+// Checkout
+Route::post('/cart/payment/prepare-checkout', [FoodController::class, 'prepareCheckout'])->name('prepare-checkout');
+Route::get('/cart/payment/checkout', [FoodController::class, 'checkout'])->name('cart-checkout');
+Route::post('/cart/payment/checkout', [FoodController::class, 'storeCheckout'])->name('store-checkout');

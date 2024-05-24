@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Food;
 
-use App\Http\Controllers\Controller;
 use App\Models\Food\Cart;
-use Illuminate\Http\Request;
 use App\Models\Food\Food;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\Food\Checkout;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class FoodController extends Controller
 {
@@ -54,8 +56,43 @@ class FoodController extends Controller
     }
 
     public function deleteCartItem($id) {
+
         Cart::find($id)->delete();
 
+        // $deleteItem = Cart::where('user_id', Auth::user()->id)->where('food_id', $food_id);
+        // $deleteItem->delete();
+
         return redirect()->route('display-cart')->with(['message' => 'The food has deleted from cart successfully!']);
+    }
+
+    public function prepareCheckout(Request $request) {
+        $value = $request->price;
+        $price = Session::put('price', $value);
+
+        $priceSession = Session::get('price');
+
+        if ($priceSession > 0) {
+            return redirect()->route('cart-checkout');
+        }
+    }
+
+    public function checkout () {
+        return view('checkout');
+    }
+
+    public function storeCheckout (Request $request) {
+        Checkout::create([
+            'user_id' => Auth::user()->id,
+            'price' => $request->price,
+            'name' => $request->name,
+            'email' => $request->email,
+            'town' => $request->town,
+            'country' => $request->country,
+            'zipcode' => $request->zipcode,
+            'phone_number' => $request->phone_number,
+            'address' => $request->address,
+        ]);
+
+        echo "Payng with paypal";
     }
 }
