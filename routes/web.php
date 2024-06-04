@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookingController;
 use App\Models\Food\Food;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -32,3 +33,10 @@ Route::get('/cart/delete/{id}', [FoodController::class, 'deleteCartItem'])->name
 Route::post('/cart/payment/prepare-checkout', [FoodController::class, 'prepareCheckout'])->name('prepare-checkout');
 Route::get('/cart/payment/checkout', [FoodController::class, 'checkout'])->name('cart-checkout');
 Route::post('/cart/payment/checkout', [FoodController::class, 'storeCheckout'])->name('store-checkout');
+
+Route::get('/cart/payment/pay', [FoodController::class, 'payingOrder'])->name('pay');
+Route::get('/cart/payment/success', [FoodController::class, 'successPayment'])->name('success-payment');
+
+
+// Booking tables
+Route::post('/booking', [BookingController::class, 'bookingTables'])->name('booking-table');

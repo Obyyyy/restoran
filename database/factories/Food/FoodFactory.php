@@ -20,7 +20,7 @@ class FoodFactory extends Factory
         return [
             'name' => fake()->name(),
             'slug' => Str::slug(fake()->sentence()),
-            'price' => fake()->randomNumber(3, true),
+            'price' => fake()->randomNumber(2, true),
             // 'category' => 'breakfast',
             'category' => fake()->randomElement(['breakfast', 'launch', 'dinner']),
             'description' => fake()->text(300),

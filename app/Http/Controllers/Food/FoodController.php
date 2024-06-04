@@ -77,11 +77,15 @@ class FoodController extends Controller
     }
 
     public function checkout () {
-        return view('checkout');
+        if (Session::get('price') == 0) {
+            abort(403);
+        } else {
+            return view('checkout');
+        }
     }
 
     public function storeCheckout (Request $request) {
-        Checkout::create([
+        $checkout = Checkout::create([
             'user_id' => Auth::user()->id,
             'price' => $request->price,
             'name' => $request->name,
@@ -93,6 +97,36 @@ class FoodController extends Controller
             'address' => $request->address,
         ]);
 
-        echo "Payng with paypal";
+        // echo "Payng with paypal";
+
+        if ($checkout) {
+            return redirect()->route('pay');
+        }
     }
+
+    public function payingOrder () {
+        if (Session::get('price') == 0) {
+            abort(403);
+        } else {
+            return view('pay');
+        }
+    }
+
+    public function successPayment () {
+        $deleteItem = Cart::where('user_id', Auth::user()->id);
+        $deleteItem->delete();
+
+        if ($deleteItem) {
+            if (Session::get('price') == 0) {
+                abort(403);
+            } else {
+                Session::forget('price');
+                Session::put('success', 'Your payment have been done successfully');
+
+                return view('success-payment');
+            }
+            // return redirect()->view('success-payment')->with(['success' => 'Your payment have been done successfully']);
+        }
+    }
+
 }
