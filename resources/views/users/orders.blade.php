@@ -37,8 +37,8 @@
                             <td>{{ $order->phone_number }}</td>
                             <td>$ {{ $order->price }}</td>
                             <td>{{ $order->status }}</td>
-                            @if ($order->status == 'Deliverd')
-                                <td><a href="#" class="btn btn-success">Review</a></td>
+                            @if ($order->status == 'Delivered')
+                                <td><a href="{{ route('review-page') }}" class="btn btn-success">Review</a></td>
                             @else
                                 <td>Not available yet</td>
                             @endif

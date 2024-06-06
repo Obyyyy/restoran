@@ -36,7 +36,7 @@
                             <td>{{ \Carbon\Carbon::parse($booking->date)->translatedFormat('j F Y, h:i A') }}</td>
                             <td>{{ $booking->status }}</td>
                             @if ($booking->status == 'Booked')
-                                <td><a href="#" class="btn btn-success">Review</a></td>
+                                <td><a href="{{ route('review-page') }}" class="btn btn-success">Review</a></td>
                             @else
                                 <td>Not available yet</td>
                             @endif

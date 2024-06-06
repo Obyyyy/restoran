@@ -12,6 +12,9 @@ class BookingController extends Controller
 {
     public function bookingTables(Request $request)
     {
+        if (!Auth::user()) {
+            return redirect()->route('login');
+        }
         $currentDate = date("m/d/Y h:i:sa");
 
         if ($request->date == $currentDate OR $request->date < $currentDate) {

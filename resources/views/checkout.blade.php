@@ -1,4 +1,4 @@
-@extends('layouts.app');
+@extends('layouts.app')
 
 @section('content')
     <div class="container-xxl py-5 bg-dark hero-header mb-5">
@@ -6,7 +6,7 @@
             <h1 class="display-3 text-white mb-3 animated slideInDown">Checkout</h1>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb justify-content-center text-uppercase">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                     <li class="breadcrumb-item"><a href="#">Checkout</a></li>
                 </ol>
             </nav>
@@ -18,7 +18,6 @@
 
     <!-- Service Start -->
     <div class="container">
-
         <div class="col-md-12 bg-dark">
             <div class="p-5 wow fadeInUp" data-wow-delay="0.2s">
                 <h5 class="section-title ff-secondary text-start text-primary fw-normal">Reservation</h5>

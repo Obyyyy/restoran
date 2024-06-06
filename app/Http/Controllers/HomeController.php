@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Food\Food;
+use App\Models\Review;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -12,10 +13,10 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     /**
      * Show the application dashboard.
@@ -24,11 +25,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $breakfastFoods = Food::select()->take(8)->where('category', 'breakfast')->get();
-        $launchFoods = Food::select()->take(8)->where('category', 'launch')->get();
-        $dinnerFoods = Food::select()->take(8)->where('category', 'dinner')->get();
+        $breakfastFoods = Food::select()->take(4)->where('category', 'breakfast')->get();
+        $launchFoods = Food::select()->take(4)->where('category', 'launch')->get();
+        $dinnerFoods = Food::select()->take(4)->where('category', 'dinner')->get();
+        $reviews = Review::select()->take(4)->get();
 
-        return view('home', ['breakfastFoods' => $breakfastFoods, 'launchFoods' => $launchFoods, 'dinnerFoods' => $dinnerFoods]);
+        return view('home', ['breakfastFoods' => $breakfastFoods, 'launchFoods' => $launchFoods, 'dinnerFoods' => $dinnerFoods, 'reviews' => $reviews]);
     }
 
     public function about()
@@ -44,5 +46,16 @@ class HomeController extends Controller
         $dinnerFoods = Food::select()->where('category', 'dinner')->get();
 
         return view('menu', compact('breakfastFoods', 'launchFoods', 'dinnerFoods'));
+    }
+
+    public function servicesPage()
+    {
+
+    return view('pages.services');
+    }
+    public function contactPage()
+    {
+
+    return view('pages.contact');
     }
 }
