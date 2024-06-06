@@ -36,4 +36,13 @@ class HomeController extends Controller
 
     return view('about');
     }
+
+    public function menuPage()
+    {
+        $breakfastFoods = Food::select()->where('category', 'breakfast')->get();
+        $launchFoods = Food::select()->where('category', 'launch')->get();
+        $dinnerFoods = Food::select()->where('category', 'dinner')->get();
+
+        return view('menu', compact('breakfastFoods', 'launchFoods', 'dinnerFoods'));
+    }
 }

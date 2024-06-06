@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('checkouts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users');
-            $table->string('status')->default('processed');
+            $table->string('status')->default('Processing');
             $table->string('price');
             $table->string('name');
             $table->string('email');

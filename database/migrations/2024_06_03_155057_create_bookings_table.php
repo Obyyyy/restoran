@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('date');
             $table->integer('num_people');
             $table->text('spe_request');
+            $table->string('status')->default('Processing');
             $table->timestamps();
         });
     }
