@@ -8,19 +8,17 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\Food\FoodController;
-
-Route::get('/', function () {
-
-    return redirect()->route('home');
-});
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Middleware\checkForAuth;
 
 Auth::routes();
 
-// Home page
+// Navbar page
+Route::get('/', function () {
+    return redirect()->route('home');
+});
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-// About page
 Route::get('/about', [App\Http\Controllers\HomeController::class, 'about'])->name('about');
-// Menu Page
 Route::get('/menu', [HomeController::class, 'menuPage'])->name('menu-page');
 Route::get('/services', [HomeController::class, 'servicesPage'])->name('services-page');
 Route::get('/contact', [HomeController::class, 'contactPage'])->name('contact-page');
@@ -56,4 +54,25 @@ Route::group(['prefix' => 'users'], function() {
     // Review
     Route::get('/review', [UserController::class, 'displayReview'])->name('review-page');
     Route::post('/review', [UserController::class, 'submitReview'])->name('submit-review');
+});
+
+// Admin
+// Route::get('/admin/login', [AdminController::class, 'displayAdminLogin'])->name('display-admin-login')->middleware(checkForAuth::class);
+Route::get('/admin/login', [AdminController::class, 'displayAdminLogin'])->name('display-admin-login')->middleware('checkForAuth');
+Route::post('/admin/login', [AdminController::class, 'checkAdminLogin'])->name('admin-login');
+
+Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin-dashboard');
+
+    Route::get('/admins', [AdminController::class, 'allAdmins'])->name('all-admin-page');
+    Route::get('/admins/create', [AdminController::class, 'displayCreateAdmins'])->name('display-create-admin');
+    Route::post('/admins/create', [AdminController::class, 'createAdmins'])->name('create-admin');
+
+    Route::get('/orders', [AdminController::class, 'allOrders'])->name('admin-orders-page');
+    Route::get('/orders/edit/{id}', [AdminController::class, 'editOrder'])->name('admin-orders-edit');
+    Route::post('/orders/edit/{id}', [AdminController::class, 'storeEditOrder'])->name('admin-orders-edit-save');
+    Route::get('/orders/delete/{id}', [AdminController::class, 'deleteOrder'])->name('admin-orders-delete');
+
+    Route::get('/foods', [AdminController::class, 'allFoods'])->name('admin-foods-page');
+    Route::get('/bookings', [AdminController::class, 'allBookings'])->name('admin-bookings-page');
 });
