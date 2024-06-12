@@ -64,15 +64,26 @@ Route::post('/admin/login', [AdminController::class, 'checkAdminLogin'])->name('
 Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin-dashboard');
 
+    // Admins
     Route::get('/admins', [AdminController::class, 'allAdmins'])->name('all-admin-page');
     Route::get('/admins/create', [AdminController::class, 'displayCreateAdmins'])->name('display-create-admin');
     Route::post('/admins/create', [AdminController::class, 'createAdmins'])->name('create-admin');
 
+    // Orders
     Route::get('/orders', [AdminController::class, 'allOrders'])->name('admin-orders-page');
     Route::get('/orders/edit/{id}', [AdminController::class, 'editOrder'])->name('admin-orders-edit');
     Route::post('/orders/edit/{id}', [AdminController::class, 'storeEditOrder'])->name('admin-orders-edit-save');
     Route::get('/orders/delete/{id}', [AdminController::class, 'deleteOrder'])->name('admin-orders-delete');
 
-    Route::get('/foods', [AdminController::class, 'allFoods'])->name('admin-foods-page');
+    // Bookings
     Route::get('/bookings', [AdminController::class, 'allBookings'])->name('admin-bookings-page');
+    Route::get('/bookings/edit/{id}', [AdminController::class, 'editBooking'])->name('admin-bookings-edit');
+    Route::post('/bookings/edit/{id}', [AdminController::class, 'storeEditBooking'])->name('admin-bookings-edit-save');
+    Route::get('/bookings/delete/{id}', [AdminController::class, 'deleteBooking'])->name('admin-bookings-delete');
+
+    // Foods
+    Route::get('/foods', [AdminController::class, 'allFoods'])->name('admin-foods-page');
+    Route::get('/foods/create', [AdminController::class, 'displayCreateFoods'])->name('admin-create-foods');
+    Route::post('/foods/create', [AdminController::class, 'createFoods'])->name('admin-create-foods-save');
+    Route::get('/foods/delete/{id}', [AdminController::class, 'deleteFood'])->name('admin-foods-delete');
 });

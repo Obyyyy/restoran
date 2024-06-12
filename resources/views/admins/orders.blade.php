@@ -1,14 +1,13 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="container">
-        @if (Session::has('delete-order'))
-            <p class="alert alert-primary">{{ Session::get('delete-order') }}</p>
-        @endif
-        @if (Session::has('edit-order'))
-            <p class="alert alert-primary">{{ Session::get('edit-order') }}</p>
-        @endif
-    </div>
+    @if (Session::has('delete-order'))
+        <p class="alert alert-primary">{{ Session::get('delete-order') }}</p>
+    @endif
+    @if (Session::has('edit-order'))
+        <p class="alert alert-primary">{{ Session::get('edit-order') }}</p>
+    @endif
+
     <div class="row">
         <div class="col">
             <div class="card">

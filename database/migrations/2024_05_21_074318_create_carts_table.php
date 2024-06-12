@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users');
-            $table->foreignId('food_id')->references('id')->on('foods');
+            $table->foreignId('food_id')->references('id')->on('foods')->onDelete('cascade');
             $table->string('food_name');
             $table->string('food_price');
             $table->string('food_image');
