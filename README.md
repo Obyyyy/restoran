@@ -14,10 +14,21 @@ You can clone this repository with this methods:
     ```sh
     git clone https://github.com/Obyyyy/restoran.git
     ```
-
+## Setup the Project
+- Run the following commands to setup the project:
+    ```sh
+    composer install && npm install
+    ```
+     ```sh
+    cp .env.example .env
+    ```
+    ```sh
+    php artisan key:generate
+    ```
+    
 ## Setup the Database
 
--   Start your web server and sql using XAMPP, Laragon, Laravel Herd or etc.
+-   Start your web server and sql using XAMPP, Laragon, Laravel Herd, etc.
 -   Open the repository in VSCode, and run this command in terminal to create the database schema
     ```sh
     php artisan migrate
@@ -29,6 +40,5 @@ You can clone this repository with this methods:
 
 ## Run the Application
 
--   In terminal type `npm install` to download all the Libraries.
 -   After that, type `npm run dev`
 -   Open a another terminal tab, and run `php artisan serve` to run the application
